@@ -1,4 +1,4 @@
-module github.com/casbin/casbin/v2
+module github.com/ApicaSystem/casbin/v2
 
 require (
 	github.com/bmatcuk/doublestar/v4 v4.6.1
