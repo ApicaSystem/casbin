@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/casbin/casbin/v2/log"
-	fileadapter "github.com/casbin/casbin/v2/persist/file-adapter"
-	"github.com/casbin/casbin/v2/rbac"
-	"github.com/casbin/casbin/v2/util"
+	"github.com/ApicaSystem/casbin/v2/log"
+	fileadapter "github.com/ApicaSystem/casbin/v2/persist/file-adapter"
+	"github.com/ApicaSystem/casbin/v2/rbac"
+	"github.com/ApicaSystem/casbin/v2/util"
 )
 
 func testEnforce(t *testing.T, e *Enforcer, sub interface{}, obj interface{}, act string, res bool) {

@@ -17,8 +17,8 @@ package casbin
 import (
 	"testing"
 
-	fileadapter "github.com/casbin/casbin/v2/persist/file-adapter"
-	"github.com/casbin/casbin/v2/util"
+	fileadapter "github.com/ApicaSystem/casbin/v2/persist/file-adapter"
+	"github.com/ApicaSystem/casbin/v2/util"
 )
 
 func TestInitFilteredAdapter(t *testing.T) {
