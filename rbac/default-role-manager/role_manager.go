@@ -19,9 +19,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/casbin/casbin/v2/log"
-	"github.com/casbin/casbin/v2/rbac"
-	"github.com/casbin/casbin/v2/util"
+	"github.com/ApicaSystem/casbin/v2/log"
+	"github.com/ApicaSystem/casbin/v2/rbac"
+	"github.com/ApicaSystem/casbin/v2/util"
 )
 
 const defaultDomain string = ""

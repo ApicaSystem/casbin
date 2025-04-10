@@ -17,7 +17,7 @@ package persist
 import (
 	"context"
 
-	"github.com/casbin/casbin/v2/model"
+	"github.com/ApicaSystem/casbin/v2/model"
 )
 
 // ContextFilteredAdapter is the context-aware interface for Casbin adapters supporting filtered policies.

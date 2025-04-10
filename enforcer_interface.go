@@ -15,10 +15,10 @@
 package casbin
 
 import (
-	"github.com/casbin/casbin/v2/effector"
-	"github.com/casbin/casbin/v2/model"
-	"github.com/casbin/casbin/v2/persist"
-	"github.com/casbin/casbin/v2/rbac"
+	"github.com/ApicaSystem/casbin/v2/effector"
+	"github.com/ApicaSystem/casbin/v2/model"
+	"github.com/ApicaSystem/casbin/v2/persist"
+	"github.com/ApicaSystem/casbin/v2/rbac"
 	"github.com/casbin/govaluate"
 )
 

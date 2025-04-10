@@ -18,7 +18,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/casbin/casbin/v2/util"
+	"github.com/ApicaSystem/casbin/v2/util"
 )
 
 // testGetUsersInDomain: Add by Gordon.

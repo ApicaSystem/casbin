@@ -17,8 +17,8 @@ package stringadapter
 import (
 	"testing"
 
-	"github.com/casbin/casbin/v2"
-	"github.com/casbin/casbin/v2/model"
+	"github.com/ApicaSystem/casbin/v2"
+	"github.com/ApicaSystem/casbin/v2/model"
 )
 
 func Test_KeyMatchRbac(t *testing.T) {

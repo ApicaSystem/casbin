@@ -21,7 +21,7 @@ import (
 
 	"github.com/casbin/govaluate"
 
-	"github.com/casbin/casbin/v2/persist"
+	"github.com/ApicaSystem/casbin/v2/persist"
 )
 
 // SyncedEnforcer wraps Enforcer and provides synchronized access.
