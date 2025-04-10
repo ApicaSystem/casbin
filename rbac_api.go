@@ -314,6 +314,78 @@ func (e *Enforcer) GetImplicitUsersForRole(name string, domain ...string) ([]str
 	return res, nil
 }
 
+// GetAllImplicitRoles recursively retrieves all roles assigned to a user, including inherited ones.
+func (e *Enforcer) GetAllImplicitRoles(user string, domain ...string) []string {
+	var allRoles []string
+	seenRoles := make(map[string]bool)
+
+	var collectRoles func(string)
+	collectRoles = func(current string) {
+		roles, _ := e.GetImplicitRolesForUser(current, domain...)
+		for _, role := range roles {
+			if !seenRoles[role] {
+				seenRoles[role] = true
+				allRoles = append(allRoles, role)
+				collectRoles(role)
+			}
+		}
+	}
+
+	collectRoles(user)
+	return allRoles
+}
+
+// GetImplicitAscentPermissionsForUser retrieves permissions for a user by considering implicit role assignments.
+func (e *Enforcer) GetImplicitAscentPermissionsForUser(user string, domain ...string) ([][]string, error) {
+	return e.GetNamedImplicitAscentPermissionsForUser("p", "g", user, domain...)
+}
+
+// GetNamedImplicitAscentPermissionsForUser retrieves all g, g2, g3, g4, and g5 role mappings
+// that are implicitly related to a specific permission.
+// It explores multiple levels of role inheritance and domain-specific mappings to collect
+// all permissions effectively.
+func (e *Enforcer) GetNamedImplicitAscentPermissionsForUser(ptype string, gtype string, user string, domain ...string) ([][]string, error) {
+	permission := make([][]string, 0)
+	rm := e.GetNamedRoleManager(gtype)
+	if rm == nil {
+		return nil, fmt.Errorf("role manager %s is not initialized", gtype)
+	}
+
+	roles := e.GetAllImplicitRoles(user, domain...)
+	policyRoles := make(map[string]struct{}, len(roles)+1)
+	policyRoles[user] = struct{}{}
+	for _, r := range roles {
+		policyRoles[r] = struct{}{}
+	}
+
+	domainIndex, err := e.GetFieldIndex(ptype, constant.DomainIndex)
+	for _, rule := range e.model["p"][ptype].Policy {
+		if len(domain) == 0 {
+			if _, ok := policyRoles[rule[0]]; ok {
+				permission = append(permission, deepCopyPolicy(rule))
+			}
+			continue
+		}
+		if len(domain) > 1 {
+			return nil, errors.ErrDomainParameter
+		}
+		if err != nil {
+			return nil, err
+		}
+		d := domain[0]
+		matched := rm.Match(d, rule[domainIndex])
+		if !matched {
+			continue
+		}
+		if _, ok := policyRoles[rule[0]]; ok {
+			newRule := deepCopyPolicy(rule)
+			newRule[domainIndex] = d
+			permission = append(permission, newRule)
+		}
+	}
+	return permission, nil
+}
+
 // GetImplicitPermissionsForUser gets implicit permissions for a user or role.
 // Compared to GetPermissionsForUser(), this function retrieves permissions for inherited roles.
 // For example:
