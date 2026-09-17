@@ -173,6 +173,18 @@ func (e *SyncedEnforcer) GetImplicitPermissionsForUser(user string, domain ...st
 	return e.Enforcer.GetImplicitPermissionsForUser(user, domain...)
 }
 
+func (e *SyncedEnforcer) GetImplicitAscentPermissionsForUser(user string, domain ...string) ([][]string, error) {
+	e.m.Lock()
+	defer e.m.Unlock()
+	return e.Enforcer.GetImplicitAscentPermissionsForUser(user, domain...)
+}
+
+func (e *SyncedEnforcer) GetNamedImplicitAscentPermissionsForUser(ptype string, gtype string, user string, domain ...string) ([][]string, error) {
+	e.m.Lock()
+	defer e.m.Unlock()
+	return e.Enforcer.GetNamedImplicitAscentPermissionsForUser(ptype, gtype, user, domain...)
+}
+
 // GetNamedImplicitPermissionsForUser gets implicit permissions for a user or role by named policy.
 // Compared to GetNamedPermissionsForUser(), this function retrieves permissions for inherited roles.
 // For example:
